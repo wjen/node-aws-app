@@ -1,0 +1,62 @@
+name: ProdCI
+
+on:
+    push:
+        branches: [main]
+
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [14.x]
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: Confirm Security Group
+              run: |
+                  echo ${{secrets.AWS_SECURITY_GROUP_ID}} | sed 's/./& /g'
+            - name: Add IP to AWS security group
+              uses: sohelamin/aws-security-group-add-ip-action@master
+              with:
+                  aws-access-key-id: ${{ secrets.WEN_AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.WEN_AWS_SECRET_ACCESS_KEY }}
+                  aws-region: 'us-west-2'
+                  aws-security-group-id: ${{ secrets.WEN_AWS_SECURITY_GROUP_ID }}
+                  port: '22'
+                  to-port: '30'
+                  protocol: 'tcp'
+                  description: 'GitHub Action'
+            - name: Sync Files
+              uses: burnett01/rsync-deployments@5.2.1
+              with:
+                  switches: -hvrPt --exclude=".git" --exclude="vendor" --exclude="node_modules" --exclude="wp-content/plugins/hello.php" --exclude="wp-content/plugins/index.php" --exclude="wp-content/plugins/akismet" --exclude="wp-content/plugins/duplicate-post"
+                  remote_path: /home/bitnami/stack/wordpress/
+                  remote_host: 18.212.56.134
+                  remote_user: bitnami
+                  remote_key: ${{ secrets.WEN_EC2_SSH_KEY }}
+            - name: Run theme Composer
+              uses: garygrossgarten/github-action-ssh@release
+              with:
+                  command: cd /home/bitnami/stack/wordpress/wp-content/themes/headless && composer install
+                  host: 18.212.56.134
+                  username: bitnami
+                  privateKey: ${{ secrets.WEN_EC2_SSH_KEY }}
+            - name: npm install custom-block plugin
+              uses: garygrossgarten/github-action-ssh@release
+              with:
+                  command: cd /home/bitnami/stack/wordpress/wp-content/plugins/custom-block && npm install && npm run build
+                  host: 18.212.56.134
+                  username: bitnami
+                  privateKey: ${{ secrets.WEN_EC2_SSH_KEY }}
+            - name: npm install include-by-reference plugin
+              uses: garygrossgarten/github-action-ssh@release
+              with:
+                  command: cd /home/bitnami/stack/wordpress/wp-content/plugins/include-by-reference && npm install && npm run build
+                  host: 18.212.56.134
+                  username: bitnami
+                  privateKey: ${{ secrets.WEN_EC2_SSH_KEY }}
