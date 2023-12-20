@@ -1,0 +1,20 @@
+<iframe id="hiddenFrame" name="hiddenFrame" class="'shrink-hide"></iframe>
+<form id="form_add_record" action="/api/inventory" method="POST" target="hiddenFrame">
+    <div class="section">
+        <h2 class="center">Add Items</h2>
+        <div class="section">
+            <b>Description</b>
+            <input type="text" class="component" name="description">
+        </div>
+        <div class="section">
+            <b>Quantity</b>
+            <input type="number" class="component" name="quantity">
+        </div>
+        <div class="section">
+            <b>Price</b>
+            <input type="number" class="component" step='0.1' name="price">
+        </div>
+
+        <button type="submit" class="button fill" id="submit">SUBMIT</button>
+    </div>
+</form>

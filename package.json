@@ -1,0 +1,25 @@
+{
+    "name": "aws-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/app.js",
+    "scripts": {
+        "test": "mocha",
+        "build-style": "sass www/view/index/index.scss www/view/index/index.css",
+        "watch-style": "sass www/view/index/index.scss www/view/index/index.css --watch"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.3.1",
+        "ejs": "^3.1.9",
+        "express": "^4.18.2",
+        "mysql2": "^3.6.5",
+        "sass": "^1.69.5"
+    },
+    "type": "module",
+    "devDependencies": {
+        "mocha": "^10.2.0"
+    }
+}
