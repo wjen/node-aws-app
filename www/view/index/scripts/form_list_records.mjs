@@ -73,14 +73,6 @@ async function clickUpdate(event) {
     const field = event.target.getAttribute('data-field');
     const value = document.querySelector(`#${field}`).innerHTML;
     await InventoryAPI.updateRecord(getID(), field, value);
-    console.log(
-        '🚀 ~ file: form_list_records.mjs:76 ~ clickUpdate ~ value:',
-        value
-    );
-    console.log(
-        '🚀 ~ file: form_list_records.mjs:77 ~ clickUpdate ~ value:',
-        value
-    );
     const records = await InventoryAPI.listRecords();
     console.log(records);
     loadSelect(records, 'description');

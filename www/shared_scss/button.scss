@@ -1,0 +1,10 @@
+.button {
+    @include double_border(rgb(44, 127, 48));
+    font-size: larger;
+    font-weight: bolder;
+    background-color: aquamarine;
+    text-align: center;
+    cursor: pointer;
+
+    display: flex;
+}
