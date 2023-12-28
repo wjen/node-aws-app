@@ -1,3 +1,5 @@
+#!/bin/bash
+
 name: ProdCI
 
 on:
@@ -36,14 +38,14 @@ jobs:
               with:
                   switches: -hvrPt --exclude=".git" --exclude="vendor" --exclude="node_modules" --exclude="wp-content/plugins/hello.php" --exclude="wp-content/plugins/index.php" --exclude="wp-content/plugins/akismet" --exclude="wp-content/plugins/duplicate-post"
                   remote_path: /home/bitnami/stack/wordpress/
-                  remote_host: 18.212.56.134
+                  remote_host: 54.165.62.22
                   remote_user: bitnami
                   remote_key: ${{ secrets.WEN_EC2_SSH_KEY }}
 
             - name: npm install custom-block plugin
               uses: garygrossgarten/github-action-ssh@release
               with:
-                  command: cd /home/bitnami/stack/wordpress && source ~/.nvm/nvm.sh && npm install
-                  host: 18.212.56.134
+                  command: cd /home/bitnami/stack/wordpress &&  npm install
+                  host: 54.165.62.22
                   username: bitnami
                   privateKey: ${{ secrets.WEN_EC2_SSH_KEY }}

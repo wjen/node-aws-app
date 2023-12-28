@@ -1,21 +1,21 @@
 import InventoryAPI from '../../model/InventoryAPI.js';
 import loadSelect from './load_select.mjs';
 
-function formListRecords() {
+function ÒListRecords() {
     window.addEventListener('load', async () => {
         const records = await InventoryAPI.listRecords();
-        console.log(
-            '🚀 ~ file: form_list_records.mjs:7 ~ window.addEventListener ~ records:',
-            records
-        );
+        // console.log(
+        // '🚀 ~ file: form_list_records.mjs:7 ~ window.addEventListener ~ records:',
+        // records
+        // );
 
         loadSelect(records);
 
         const buttSelect = document.querySelector('#list_records #select');
-        console.log(
-            '🚀 ~ file: form_list_records.mjs:15 ~ window.addEventListener ~ buttSelect:',
-            buttSelect
-        );
+        // console.log(
+        // '🚀 ~ file: form_list_records.mjs:15 ~ window.addEventListener ~ buttSelect:',
+        // buttSelect
+        // );
         buttSelect.addEventListener('click', clickSelect);
 
         const buttDelete = document.querySelector('#list_records #delete');
@@ -30,30 +30,30 @@ function formListRecords() {
 }
 function getID() {
     const selectElement = document.querySelector('#record-list');
-    console.log(
-        '🚀 ~ file: form_list_records.mjs:33 ~ getID ~ selectElement:',
-        selectElement
-    );
+    // console.log(
+    // '🚀 ~ file: form_list_records.mjs:33 ~ getID ~ selectElement:',
+    // selectElement
+    // );
     const index = selectElement.selectedIndex;
-    console.log('🚀 ~ file: form_list_records.mjs:38 ~ getID ~ index:', index);
+    // console.log('🚀 ~ file: form_list_records.mjs:38 ~ getID ~ index:', index);
     const optionElement = selectElement.childNodes[index];
-    console.log(
-        '🚀 ~ file: form_list_records.mjs:40 ~ getID ~ optionElement:',
-        optionElement
-    );
+    // console.log(
+    // '🚀 ~ file: form_list_records.mjs:40 ~ getID ~ optionElement:',
+    // optionElement
+    // );
     console.log(optionElement.getAttribute('data-id'));
     return optionElement.getAttribute('data-id');
 }
 async function clickSelect(event) {
     const records = await InventoryAPI.retrieveRecord(getID());
-    console.log(
-        '🚀 ~ file: form_list_records.mjs:49 ~ clickSelect ~ getID():',
-        getID()
-    );
-    console.log(
-        '🚀 ~ file: form_list_records.mjs:43 ~ clickSelect ~ records:',
-        records
-    );
+    // console.log(
+    // '🚀 ~ file: form_list_records.mjs:49 ~ clickSelect ~ getID():',
+    // getID()
+    // );
+    // console.log(
+    // '🚀 ~ file: form_list_records.mjs:43 ~ clickSelect ~ records:',
+    // records
+    // );
     if (records.length < 1) return;
     console.log(records);
     document.querySelector('#info #id').innerHTML = records[0].id;
