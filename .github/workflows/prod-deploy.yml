@@ -45,7 +45,7 @@ jobs:
             - name: npm install custom-block plugin
               uses: garygrossgarten/github-action-ssh@release
               with:
-                  command: cd /home/bitnami/stack/wordpress &&  npm install
+                  command: cd /home/bitnami/stack/wordpress && source ~/.nvm/nvm.sh  d&& npm install
                   host: 54.165.62.22
                   username: bitnami
                   privateKey: ${{ secrets.WEN_EC2_SSH_KEY }}
